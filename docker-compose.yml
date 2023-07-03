@@ -1,0 +1,40 @@
+# images: php8.2-apache, mariadb, phpmyadmin
+version: '3.8'
+services:
+  php8:
+    image: php:8.2-apache
+    container_name: php8
+    ports:
+      - "80:80"
+    command: bash -c "a2enmod rewrite && service apache2 restart && tail -f /dev/null"
+    volumes:
+      - ./web:/var/www/html
+      - ./app:/var/www/app
+      - ./assets:/var/www/html/assets
+      - ./route.conf:/etc/apache2/sites-available/000-default.conf
+  
+  mariadb:
+    image: mariadb
+    container_name: db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+  
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+    depends_on:
+      - mariadb
