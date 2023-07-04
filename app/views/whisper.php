@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>New Whisper</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <script defer src="/assets/js/bootstrap.js"></script>
 </head>
 <body>
-    <form action="/whisper/store" method="POST">
-        <section>
-            <label for="title">Title</label>
-            <input type="text" name="title" id="title">
-        </section>
-        <section>
-            <label for="content">Content</label>
-            <textarea name="content" id="content" cols="30" rows="10"></textarea>
-        </section>
-        <section>
-            <button type="submit">Submit</button>
-        </section>
-    </form>
+    <main class="container">
+        <form action="/whisper/store" method="POST">
+            <section>
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" name="title" id="title">
+            </section>
+            <section>
+                <label for="content" class="form-label">Content</label>
+                <textarea name="content" class="form-control" id="content" cols="30" rows="10"></textarea>
+            </section>
+                <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        
+    </main>
 </body>
 </html>

@@ -6,23 +6,28 @@ services:
     container_name: php8
     ports:
       - "80:80"
-    command: bash -c "a2enmod rewrite && service apache2 restart && tail -f /dev/null"
+    command: bash -c "sh /var/www/setup.sh"
     volumes:
       - ./web:/var/www/html
       - ./app:/var/www/app
       - ./assets:/var/www/html/assets
       - ./route.conf:/etc/apache2/sites-available/000-default.conf
+      - ./setup.sh:/var/www/setup.sh
+    depends_on:
+      - mariadb
   
   mariadb:
     image: mariadb
-    container_name: db
+    container_name: mariadb
     ports:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: db
+      MYSQL_DATABASE: db_whispers
       MYSQL_USER: user
       MYSQL_PASSWORD: user
+    volumes:
+      - ./app/database/migrate.sql:/docker-entrypoint-initdb.d/migrate.sql
   
   phpmyadmin:
     image: phpmyadmin

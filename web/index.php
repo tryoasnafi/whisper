@@ -49,4 +49,4 @@ if ($matchedRoute !== null) {
 
 // Handle 404 Not Found
 http_response_code(404);
-// header("Location: /");
+header("Location: /");
